@@ -66,8 +66,6 @@ install -v -m 0755 files/usr/libexec/ovos-systemd-voice "${ROOTFS_DIR}/usr/libex
 install -v -m 0755 files/usr/libexec/ovos-systemd-phal "${ROOTFS_DIR}/usr/libexec/"
 install -v -m 0755 files/usr/libexec/ovos-systemd-admin-phal "${ROOTFS_DIR}/usr/libexec/"
 
-# systemd services
-
 # system services
 install -v -d -m 0755 "${ROOTFS_DIR}/etc/systemd/system/ovos.service.wants"
 install -v -m 0644 files/usr/lib/systemd/system/ovos-admin-phal.service "${ROOTFS_DIR}/usr/lib/systemd/system/"
