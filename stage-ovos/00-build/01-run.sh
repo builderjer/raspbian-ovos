@@ -96,7 +96,7 @@ install -v -m 0755 files/install_ovos.sh "${ROOTFS_DIR}/"
 
 # install ovos-core
 on_chroot << EOF
-chmod -v +x /home/ovos/install_ovos.sh
+chmod -v +x /install_ovos.sh
 
 chown -Rv ovos:ovos /home/ovos
 chmod -Rv +x /home/ovos/.local/bin/*
