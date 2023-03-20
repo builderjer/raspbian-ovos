@@ -28,7 +28,7 @@ install -v -m 0644 files/etc/udev/rules.d/91-pulseaudio-GeneralPlus.rules "${ROO
 # bash scripts
 install -v -m 0664 files/home/ovos/.bashrc "${ROOTFS_DIR}/home/ovos/.bashrc"
 install -v -m 0664 files/home/ovos/.bash_profile "${ROOTFS_DIR}/home/ovos/.bash_profile"
-install -v -m 0664 files/home/ovos/cli_login.sh "${ROOTFS_DIR}/home/ovos/cli_login.sh"
+install -v -m 0664 files/home/ovos/.cli_login.sh "${ROOTFS_DIR}/home/ovos/.cli_login.sh"
 
 # user level mycroft.conf
 install -v -d -m 0755 "${ROOTFS_DIR}/home/ovos/.config"
@@ -57,7 +57,6 @@ install -v -m 0755 files/usr/libexec/ovos-systemd-phal "${ROOTFS_DIR}/usr/libexe
 install -v -m 0755 files/usr/libexec/ovos-systemd-admin-phal "${ROOTFS_DIR}/usr/libexec/"
 
 # system services
-install -v -d -m 0755 "${ROOTFS_DIR}/etc/systemd/system/ovos.service.wants"
 install -v -m 0644 files/usr/lib/systemd/system/ovos-admin-phal.service "${ROOTFS_DIR}/usr/lib/systemd/system/"
 install -v -d -m 0755 "${ROOTFS_DIR}/usr/lib/systemd/system-preset"
 install -v -m 0644 files/usr/lib/systemd/system-preset/10-ovos.conf "${ROOTFS_DIR}/usr/lib/systemd/system-preset/"
@@ -81,16 +80,21 @@ install -v -d -m 0755 "${ROOTFS_DIR}/usr/lib/environment.d"
 install -v -m 0644 files/usr/lib/environment.d/99-environment.conf "${ROOTFS_DIR}/usr/lib/environment.d/"
 
 install -v -m 0755 files/install_ovos.sh "${ROOTFS_DIR}/"
+install -v -m 0755 files/install_skills.sh "${ROOTFS_DIR}/"
 
 # install ovos-core
 on_chroot << EOF
 chmod -v +x /install_ovos.sh
+chmod -v +x /install_skills.sh
 
 chown -Rv ovos:ovos /home/ovos
 chmod -Rv +x /home/ovos/.local/bin/*
 
 sudo -E bash -x /install_ovos.sh
 
+sudo -u ovos -H -E bash -x /install_skills.sh
+
 sudo rm /install_ovos.sh
+sudo rm /install_skills.sh
 
 EOF
